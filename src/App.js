@@ -1,17 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
+import Cell from "./components/Cell";
+import Example from "./components/Example";
+import SelectedDate from "./components/Selected-date";
+import Months from "./components/Months";
 
-const DATE_URL = 'https://dpg.gg/test/calendar.json'
+const DATE_URL = 'https://dpg.gg/test/calendar.json';
 const App = () => {
     const [contributions, setContributions] = useState({});
     const [selectedDate, setSelectedDate] = useState(null);
-    const [contributionsCount, setContributionsCount] = useState(0)
+    const [contributionsCount, setContributionsCount] = useState(0);
+
     useEffect(() => {
-        axios.get(DATE_URL).then((res) => {
-            setContributions(res.data)
-        }).catch((error) => {
-            console.log(error);
-        });
+        axios
+            .get(DATE_URL)
+            .then((res) => {
+                setContributions(res.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }, []);
 
     const getWeeksArray = () => {
@@ -30,8 +38,8 @@ const App = () => {
     };
 
     const handleCellClick = (date, count) => {
-        setSelectedDate(date);
-        setContributionsCount(count)
+        setSelectedDate({ date, count });
+        setContributionsCount(count);
     };
 
     const renderCells = () => {
@@ -49,10 +57,10 @@ const App = () => {
                 const day = currentDate.getDate().toString().padStart(2, '0');
                 const dateKey = `${year}-${month}-${day}`;
                 const count = contributions[dateKey] || 0;
-                const date = currentDate.toLocaleDateString('en-US', {
-                    month: 'short',
+                const date = currentDate.toLocaleDateString('ru', {
+                    month: 'long',
                     day: 'numeric',
-                    weekday: 'short',
+                    weekday: 'long',
                     year: 'numeric'
                 });
                 let cellClassName = '';
@@ -70,31 +78,62 @@ const App = () => {
                 }
 
                 cells.push(
-                    <div
+                    <Cell
                         key={`${index}-${i}`}
                         className={cellClassName}
-                        data-count={count}
-                        onClick={() => handleCellClick(date, count)}
-                    >
-                    </div>
+                        count={count}
+                        date={date}
+                        dataCount={count}
+                        onHandleClick={() => handleCellClick(date, count)}
+                    />
                 );
             }
 
-            return cells;
+            return (
+                <div key={`week-${index}`} className="week-row">
+                    {cells}
+                </div>
+            );
         });
     };
 
+    const monthsArray = [
+        'Июль',
+        'Авг.',
+        'Сент.',
+        'Окт.',
+        'Нояб.',
+        'Дек.',
+        'Янв.',
+        'Фев.',
+        'Март',
+        'Апр.',
+        'Май',
+        'Июнь'
+    ];
+
+
+
     return (
-        <div className="contribution-graph">
-            {renderCells()}
+        <div className="container">
             {selectedDate && (
-                <div className="selected-date">
-                    <div className="date">{selectedDate}</div>
-                    <div className="count">{contributionsCount}</div>
-                </div>
+                <SelectedDate selectedDate={selectedDate.date} contributionsCount={selectedDate.count} />
             )}
+            <Months
+                names={monthsArray}
+            />
+            <div className="table">
+                <div className="weekDays">
+                    <span className="weekDays-name">Ср</span>
+                    <span className="weekDays-name">Пт</span>
+                    <span className="weekDays-name">Пн</span>
+                </div>
+                <div className="contribution-graph">{renderCells()}</div>
+            </div>
+            <Example />
         </div>
     );
 };
 
 export default App;
+

@@ -1,24 +1,6 @@
-/* Стили для графика */
-.contribution-graph {
-    display: grid;
-    grid-template-columns: repeat(57, 0fr);
-    grid-template-rows: repeat(7, 1fr);
-    gap: 1px;
-    width: 90%;
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter&display=swap');
 
-}
 
-.contribution-graph .cell {
-    width: 15px;
-    height: 15px;
-    border: 1px solid transparent;
-}
-
-.contribution-graph .cell:hover {
-    border: 1px solid black;
-}
-
-/* Остальные стили */
 body {
     font-family: Arial, sans-serif;
 }
@@ -27,10 +9,55 @@ h1 {
     text-align: center;
 }
 
-.selected-date {
-    position: absolute;
-    top: 50%
+.container {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 75px 105px;
 }
+
+.table {
+    display: flex;
+    flex-direction: row;
+}
+
+.weekDays {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    margin-right: 5px;
+}
+
+.weekDays-name {
+    color: #959494;
+    text-align: center;
+    font-size: 12px;
+    font-family: Inter, serif;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+
+.contribution-graph {
+    display: grid;
+    grid-template-columns: repeat(57, 0fr);
+    grid-template-rows: repeat(7, 0fr);
+    gap: 1px;
+    width: 100%;
+}
+
+.cell {
+    width: 15px;
+    height: 15px;
+    border: 1px solid transparent;
+    margin: 1px 1px 0 0;
+}
+
+.cell:hover {
+    border: 1px solid black;
+}
+
+
 
 .cell {
     background-color: #EDEDED;
@@ -47,4 +74,70 @@ h1 {
 }
 .cell-4 {
     background-color: #254E77;
+}
+
+.example {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.example .cell{
+    margin-right: 2px;
+}
+
+.example p {
+    color: #959494;
+    font-size: 8px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    font-family: Inter, serif;
+}
+
+.selected-date {
+    top: 50%;
+    left: 50%;
+    width: 170px;
+    height: 42px;
+    border-radius: 3px;
+    background: #000;
+    color: #fff;
+    text-align: center;
+    padding: 4px 0 8px 0;
+}
+
+.count {
+    color: #FFF;
+    font-size: 12px;
+    font-family: Inter, serif;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    padding: 5px;
+}
+
+.date {
+    color: #7C7C7C;
+    font-size: 10px;
+    font-family: Inter, serif;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.Months {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.Month-name {
+    color: #959494;
+    font-size: 12px;
+    font-family: Inter, serif;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
 }
